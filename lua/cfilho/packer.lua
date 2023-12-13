@@ -3,27 +3,27 @@
 local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 
 if not packer_exists then
-	if vim.fn.input("Hent packer.nvim? (y for yada)") ~= "y" then
-		return
-	end
+    if vim.fn.input("Hent packer.nvim? (y for yada)") ~= "y" then
+        return
+    end
 
-	local directory = string.format(
-	'%s/site/pack/packer/opt/',
-	vim.fn.stdpath('data')
-	)
+    local directory = string.format(
+    '%s/site/pack/packer/opt/',
+    vim.fn.stdpath('data')
+    )
 
-	vim.fn.mkdir(directory, 'p')
+    vim.fn.mkdir(directory, 'p')
 
-	local git_clone_cmd = vim.fn.system(string.format(
-	'git clone %s %s',
-	'https://github.com/wbthomason/packer.nvim',
-	directory .. '/packer.nvim'
-	))
+    local git_clone_cmd = vim.fn.system(string.format(
+    'git clone %s %s',
+    'https://github.com/wbthomason/packer.nvim',
+    directory .. '/packer.nvim'
+    ))
 
-	print(git_clone_cmd)
-	print("Henter packer.nvim...")
+    print(git_clone_cmd)
+    print("Henter packer.nvim...")
 
-	return
+    return
 end
 
 
@@ -32,51 +32,51 @@ end
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-	-- Packer can manage itself
-	use 'wbthomason/packer.nvim'
-	
-	
-	use {
-		'nvim-telescope/telescope.nvim', tag = '0.1.2',
-		-- or                            , branch = '0.1.x',
-		requires = { {'nvim-lua/plenary.nvim'} }
-	}
+    -- Packer can manage itself
+    use 'wbthomason/packer.nvim'
 
-	use({ 
-		'rose-pine/neovim',
-		as = 'rose-pine',
-		config = function()
-			vim.cmd('colorscheme rose-pine')
-		end
-	})
 
-	use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-    
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.2',
+        -- or                            , branch = '0.1.x',
+        requires = { {'nvim-lua/plenary.nvim'} }
+    }
+
+    use({ 
+        'rose-pine/neovim',
+        as = 'rose-pine',
+        config = function()
+            vim.cmd('colorscheme rose-pine')
+        end
+    })
+
+    use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+
     -- Surround
-	use 'tpope/vim-surround'
+    use 'tpope/vim-surround'
 
     -- Repeat
-	use 'tpope/vim-repeat'
+    use 'tpope/vim-repeat'
 
-	use ('nvim-treesitter/playground')
-	use ('theprimeagen/harpoon')
-	use ('mbbill/undotree')
-	use ('tpope/vim-fugitive')
-	use ('itchyny/lightline.vim')
-	use {
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v2.x',
-		requires = {
-			-- LSP Support
-			{'neovim/nvim-lspconfig'},             -- Required
-			{'williamboman/mason.nvim'},           -- Optional
-			{'williamboman/mason-lspconfig.nvim'}, -- Optional
+    use ('nvim-treesitter/playground')
+    use ('theprimeagen/harpoon')
+    use ('mbbill/undotree')
+    use ('tpope/vim-fugitive')
+    use ('itchyny/lightline.vim')
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        branch = 'v2.x',
+        requires = {
+            -- LSP Support
+            {'neovim/nvim-lspconfig'},             -- Required
+            {'williamboman/mason.nvim'},           -- Optional
+            {'williamboman/mason-lspconfig.nvim'}, -- Optional
 
-			-- Autocompletion
-			{'hrsh7th/nvim-cmp'},     -- Required
-			{'hrsh7th/cmp-nvim-lsp'}, -- Required
-			{'L3MON4D3/LuaSnip'},     -- Required
-		}
+            -- Autocompletion
+            {'hrsh7th/nvim-cmp'},     -- Required
+            {'hrsh7th/cmp-nvim-lsp'}, -- Required
+            {'L3MON4D3/LuaSnip'},     -- Required
+        }
     }
     use({
         "kylechui/nvim-surround",
@@ -87,4 +87,34 @@ return require('packer').startup(function(use)
             })
         end
     })
+
+    use 'mfussenegger/nvim-dap'
+    use {
+        "rcarriga/nvim-dap-ui",
+        dependencies = "mfussenegger/nvim-dap",
+        config = function()
+            local dap = require("dap")
+            local dapui = require("dapui")
+            dapui.setup()
+            dap.listeners.after.event_initialized["dapui_config"] = function()
+                dapui.open()
+            end
+            dap.listeners.before.event_terminated["dapui_config"] = function()
+                dapui.close()
+            end
+            dap.listeners.before.event_exited["dapui_config"] = function()
+                dapui.close()
+            end
+        end
+    }
+    use ({"jay-babu/mason-nvim-dap.nvim",
+    dependencies = {
+        "williamboman/mason.nvim",
+        "mfussenegger/nvim-dap",
+    },
+    opts = {
+        handlers = {}
+    },
+})
+
 end)
