@@ -1,54 +1,42 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
-local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
-
-if not packer_exists then
-    if vim.fn.input("Hent packer.nvim? (y for yada)") ~= "y" then
-        return
-    end
-
-    local directory = string.format(
-    '%s/site/pack/packer/opt/',
-    vim.fn.stdpath('data')
-    )
-
-    vim.fn.mkdir(directory, 'p')
-
-    local git_clone_cmd = vim.fn.system(string.format(
-    'git clone %s %s',
-    'https://github.com/wbthomason/packer.nvim',
-    directory .. '/packer.nvim'
-    ))
-
-    print(git_clone_cmd)
-    print("Henter packer.nvim...")
-
-    return
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
 
+local packer_bootstrap = ensure_packer()
 
-
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
+	use {
+		'nvim-telescope/telescope.nvim', tag = '0.1.2',
+		-- or                            , branch = '0.1.x',
+		requires = { {'nvim-lua/plenary.nvim'} }
+	}
+
+	use({
+		'catppuccin/nvim',
+		as = 'catppuccin',
+		config = function()
+			vim.cmd('colorscheme catppuccin-mocha')
+		end
+	})
 
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.2',
         -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
-
-    use({ 
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        config = function()
-            vim.cmd('colorscheme rose-pine')
-        end
-    })
 
     use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
@@ -108,13 +96,40 @@ return require('packer').startup(function(use)
         end
     }
     use ({"jay-babu/mason-nvim-dap.nvim",
-    dependencies = {
-        "williamboman/mason.nvim",
-        "mfussenegger/nvim-dap",
-    },
-    opts = {
-        handlers = {}
-    },
-})
+        dependencies = {
+            "williamboman/mason.nvim",
+            "mfussenegger/nvim-dap",
+        },
+        opts = {
+            handlers = {}
+        },
+    })
 
+    use ({
+        'feline-nvim/feline.nvim',
+        config = function()
+            require('feline').setup()
+        end
+    })
+
+    use ({
+        "kylechui/nvim-surround",
+        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    })
+
+    use ({
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require('gitsigns').setup()
+        end
+    })
+
+    if packer_bootstrap then
+        require('packer').sync()
+    end
 end)
