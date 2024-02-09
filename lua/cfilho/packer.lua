@@ -23,7 +23,10 @@ return require('packer').startup(function(use)
 		-- or                            , branch = '0.1.x',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
-
+    use {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+    }
 	use({
 		'catppuccin/nvim',
 		as = 'catppuccin',
@@ -57,15 +60,6 @@ return require('packer').startup(function(use)
             {'L3MON4D3/LuaSnip'},     -- Required
         }
     }
-    use({
-        "kylechui/nvim-surround",
-        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-        config = function()
-            require("nvim-surround").setup({
-                -- Configuration here, or leave empty to use defaults
-            })
-        end
-    })
 
     use 'mfussenegger/nvim-dap'
     use {
@@ -96,19 +90,15 @@ return require('packer').startup(function(use)
         },
     })
 
-    use ({
-        'feline-nvim/feline.nvim',
-        config = function()
-            require('feline').setup()
-        end
-    })
+    use ({ 'feline-nvim/feline.nvim' })
+    use "Hitesh-Aggarwal/feline_one_monokai.nvim"
+    use 'nvim-tree/nvim-web-devicons'
 
     use ({
         "kylechui/nvim-surround",
         tag = "*", -- Use for stability; omit to use `main` branch for the latest features
         config = function()
             require("nvim-surround").setup({
-                -- Configuration here, or leave empty to use defaults
             })
         end
     })
