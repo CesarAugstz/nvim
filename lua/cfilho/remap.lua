@@ -42,3 +42,6 @@ vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
 
+
+-- my remaps
+vim.keymap.set("n", "<leader>on", "<cmd>only<CR>")
