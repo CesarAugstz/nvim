@@ -22,13 +22,13 @@ vim.keymap.set('n', '<leader>pcb', builtin.current_buffer_fuzzy_find, {})
 
 -- telescope config
 -- tvz n precise pq esta com wordwrap
-require('telescope').setup {
-    defaults = {
-        mappings = {
-            n = {
-                ["H"] = "preview_scrolling_right",
-                ["L"] = "preview_scrolling_left",
-            },
-        },
-    }
-}
+-- require('telescope').setup {
+--     defaults = {
+--         mappings = {
+--             n = {
+--                 ["H"] = "preview_scrolling_right",
+--                 ["L"] = "preview_scrolling_left",
+--             },
+--         },
+--     }
+-- }
