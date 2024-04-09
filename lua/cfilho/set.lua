@@ -30,5 +30,5 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
--- vim.highlight.create('ColorColumn', {ctermbg=0, guibg=lightgrey}, false)
+
 vim.cmd([[ highlight ColorColumn guibg=#3c281f ]])
