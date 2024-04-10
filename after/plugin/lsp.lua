@@ -54,3 +54,31 @@ vim.diagnostic.config({
 })
 
 lsp.setup()
+
+
+local lspconfig = require('lspconfig')
+
+-- Use project-local typescript installation if available, fallback to global install
+-- assumes typescript installed globally w/ nvm
+local function get_typescript_server_path(root_dir)
+    local global_ts = vim.fn.expand("$NVM_DIR/versions/node/$DEFAULT_NODE_VERSION/lib/node_modules/typescript/lib")
+    local project_ts = ""
+    local function check_dir(path)
+        project_ts = lspconfig.util.path.join(path, "node_modules", "typescript", "lib")
+        if lspconfig.util.path.exists(project_ts) then return path end
+    end
+    if lspconfig.util.search_ancestors(root_dir, check_dir) then
+        return project_ts
+    else
+        return global_ts
+    end
+end
+
+-- ts/js/vue
+lspconfig.volar.setup({
+    -- enable "take over mode" for typescript files as well: https://github.com/johnsoncodehk/volar/discussions/471
+    filetypes = { "typescript", "javascript", "vue" },
+    on_new_config = function(new_config, new_root_dir)
+        new_config.init_options.typescript.tsdk = get_typescript_server_path(new_root_dir)
+    end,
+})

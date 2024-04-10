@@ -1,0 +1,19 @@
+-- set vetur.validation.interpolation to false
+-- local vetur = require'lspconfig'.veturls.setup{
+--   settings = {
+--     vetur = {
+--       validation = {
+--         interpolation = false
+--       }
+--     }
+--   }
+-- }
+-- 
+-- print(vetur)
+
+-- print every key in the table
+-- local str = ""
+-- for k, v in pairs(vetur) do
+--   print(k)
+--   str = str .. k .. "\n"
+-- end

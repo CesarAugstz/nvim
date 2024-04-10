@@ -27,12 +27,27 @@ return require('packer').startup(function(use)
     'nvim-telescope/telescope-fzf-native.nvim',
     run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
   }
+
+
+  -- colors
   use({
     'catppuccin/nvim',
     as = 'catppuccin',
+  })
+
+  use({
+    'kepano/flexoki-neovim',
+    as = 'flexoki',
     config = function()
-      vim.cmd('colorscheme catppuccin-mocha')
+      vim.cmd('colorscheme flexoki-dark')
     end
+  })
+  use({
+    'Shatur/neovim-ayu',
+    as = 'ayu',
+    -- config = function()
+    --   vim.cmd('colorscheme ayu-dark')
+    -- end
   })
 
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
@@ -66,6 +81,7 @@ return require('packer').startup(function(use)
   }
 
   --[[
+  -- DAP, Debugger, sem uso no momento
   use 'mfussenegger/nvim-dap'
   use {
     "rcarriga/nvim-dap-ui",
@@ -122,6 +138,13 @@ return require('packer').startup(function(use)
   -- https://github.com/nvim-treesitter/nvim-treesitter-context#screenshot
   use('romgrk/nvim-treesitter-context')
 
+  use({
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup()
+    end
+  })
 
   if packer_bootstrap then
     require('packer').sync()
