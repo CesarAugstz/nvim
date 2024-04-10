@@ -117,12 +117,10 @@ return require('packer').startup(function(use)
     end
   })
 
-  use('prettier/vim-prettier', {
-    run = 'bun install',
-    ft = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html' }
-  })
+  use { 'mhartington/formatter.nvim' }
 
-    -- use { 'mhartington/formatter.nvim' }
+  -- https://github.com/nvim-treesitter/nvim-treesitter-context#screenshot
+  use('romgrk/nvim-treesitter-context')
 
 
   if packer_bootstrap then
