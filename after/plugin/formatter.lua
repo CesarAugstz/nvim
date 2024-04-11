@@ -32,7 +32,7 @@ formatter.setup({
       -- luafmt
       function()
         return {
-          exe = "luafmt",
+          exe = "stylua",
           args = { "--indent-count", 2, "--stdin" },
           stdin = true
         }

@@ -34,21 +34,19 @@ return require('packer').startup(function(use)
     'catppuccin/nvim',
     as = 'catppuccin',
   })
-
   use({
     'kepano/flexoki-neovim',
     as = 'flexoki',
-    config = function()
-      vim.cmd('colorscheme flexoki-dark')
-    end
   })
   use({
     'Shatur/neovim-ayu',
     as = 'ayu',
-    -- config = function()
-    --   vim.cmd('colorscheme ayu-dark')
-    -- end
   })
+  use({ "rose-pine/neovim", as = "rose-pine" })
+  use({ "folke/tokyonight.nvim", as = "tokyonight" })
+  use({ "rebelot/kanagawa.nvim", as = "kanagawa" })
+  use({ "olivercederborg/poimandres.nvim", as = "poimandres", config = function() require('poimandres').setup() end })
+  use({ "dasupradyumna/midnight.nvim" })
 
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
 
