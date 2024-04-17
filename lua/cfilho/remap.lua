@@ -41,14 +41,11 @@ vim.keymap.set("n", "<leader><leader>", function()
 end)
 
 
--- my remaps
+--[[ My remaps ]]--
+
 vim.keymap.set("n", "<leader>on", "<cmd>only<CR>")
 
 -- todo
-vim.keymap.set("n", "]t", function()
-  require("todo-comments").jump_next()
-end, { desc = "Next todo comment" })
-
 vim.keymap.set("n", "[t", function()
   require("todo-comments").jump_prev()
 end, { desc = "Previous todo comment" })
@@ -58,5 +55,8 @@ end, { desc = "Previous todo comment" })
 vim.keymap.set("n", "]t", function()
   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
 end, { desc = "Next error/warning todo comment" })
-
 vim.keymap.set("i", "<C-BS>", "<C-w>")
+
+vim.keymap.set("n", "[w", function()
+  require("treesitter-context").go_to_context(vim.v.count1)
+end, { silent = true })

@@ -17,6 +17,20 @@ function WhichColor()
   print(colors[choiceColorBaseOnDay(#colors)] or 'No color')
 end
 
+local colors = {
+  'ayu-dark',
+  -- 'flexoki-dark', n funciona direito
+  'rose-pine',
+  'tokyonight-night',
+  -- 'kanagawa', mt fraca as cores
+  'poimandres',
+  'midnight',
+}
+
+function WichColor()
+  print('Color: ' .. colors[choiceColorBaseOnDay(#colors)])
+end
+
 function ColorMyPencils(color, i)
   if i then
     color = colors[i]

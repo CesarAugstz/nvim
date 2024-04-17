@@ -27,6 +27,7 @@ return require('packer').startup(function(use)
     'nvim-telescope/telescope-fzf-native.nvim',
     run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
   }
+  use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end }
 
 
   -- colors
