@@ -1,18 +1,23 @@
 local function choiceColorBaseOnDay(len)
   local day = os.date("%d")
-  return day % len
+  return (day % len) + 1
+end
+
+local colors = {
+  'ayu-dark',
+  'flexoki-dark',
+  'rose-pine',
+  'tokyonight-night',
+  'kanagawa',
+  'poimandres',
+  'midnight',
+}
+
+function WhichColor()
+  print(colors[choiceColorBaseOnDay(#colors)] or 'No color')
 end
 
 function ColorMyPencils(color, i)
-  local colors = {
-    'ayu-dark',
-    'flexoki-dark',
-    'rose-pine',
-    'tokyonight-night',
-    'kanagawa',
-    'poimandres',
-    'midnight',
-  }
   if i then
     color = colors[i]
   end
@@ -24,6 +29,7 @@ function ColorMyPencils(color, i)
   color = color or colors[choiceColorBaseOnDay(#colors)]
   -- color = color or "catppuccin-mocha"
   vim.cmd.colorscheme(color)
+
 
 
   --	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
