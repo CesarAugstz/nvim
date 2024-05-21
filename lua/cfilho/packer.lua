@@ -145,6 +145,13 @@ return require('packer').startup(function(use)
     end
   })
 
+  use({
+    "yioneko/nvim-vtsls",
+    config = function()
+      require("lspconfig.configs").vtsls = require("vtsls").lspconfig
+    end
+  })
+
   if packer_bootstrap then
     require('packer').sync()
   end
