@@ -26,7 +26,8 @@ end
 
 
 formatter.setup({
-  logging = false,
+  logging = true,
+  log_level = vim.log.levels.DEBUG,
   filetype = {
     lua = {
       -- luafmt
