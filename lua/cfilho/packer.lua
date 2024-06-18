@@ -1,85 +1,95 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
 local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+	local fn = vim.fn
+	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+	if fn.empty(fn.glob(install_path)) > 0 then
+		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+		vim.cmd([[packadd packer.nvim]])
+		return true
+	end
+	return false
 end
 
 local packer_bootstrap = ensure_packer()
 
+return require("packer").startup(function(use)
+	-- Packer can manage itself
+	use("wbthomason/packer.nvim")
 
-return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+	use({
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.5",
+		-- or                            , branch = '0.1.x',
+		requires = { { "nvim-lua/plenary.nvim" } },
+	})
+	use({
+		"nvim-telescope/telescope-fzf-native.nvim",
+		run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+	})
+	use({
+		"junegunn/fzf",
+		run = function()
+			vim.fn["fzf#install"]()
+		end,
+	})
 
-  use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.5',
-    -- or                            , branch = '0.1.x',
-    requires = { { 'nvim-lua/plenary.nvim' } }
-  }
-  use {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
-  }
-  use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end }
+	-- colors
+	use({
+		"catppuccin/nvim",
+		as = "catppuccin",
+	})
+	use({
+		"kepano/flexoki-neovim",
+		as = "flexoki",
+	})
+	use({
+		"Shatur/neovim-ayu",
+		as = "ayu",
+	})
+	use({ "rose-pine/neovim", as = "rose-pine" })
+	use({ "folke/tokyonight.nvim", as = "tokyonight" })
+	use({ "rebelot/kanagawa.nvim", as = "kanagawa" })
+	use({
+		"olivercederborg/poimandres.nvim",
+		as = "poimandres",
+		config = function()
+			require("poimandres").setup()
+		end,
+	})
+	use({ "dasupradyumna/midnight.nvim" })
 
+	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 
-  -- colors
-  use({
-    'catppuccin/nvim',
-    as = 'catppuccin',
-  })
-  use({
-    'kepano/flexoki-neovim',
-    as = 'flexoki',
-  })
-  use({
-    'Shatur/neovim-ayu',
-    as = 'ayu',
-  })
-  use({ "rose-pine/neovim", as = "rose-pine" })
-  use({ "folke/tokyonight.nvim", as = "tokyonight" })
-  use({ "rebelot/kanagawa.nvim", as = "kanagawa" })
-  use({ "olivercederborg/poimandres.nvim", as = "poimandres", config = function() require('poimandres').setup() end })
-  use({ "dasupradyumna/midnight.nvim" })
+	-- Repeat
+	use("tpope/vim-repeat")
 
-  use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+	use({
+		"theprimeagen/harpoon",
+		branch = "harpoon2",
+		requires = { { "nvim-lua/plenary.nvim" } },
+	})
 
-  -- Repeat
-  use 'tpope/vim-repeat'
+	use("nvim-treesitter/playground")
+	use("mbbill/undotree")
+	use("tpope/vim-fugitive")
+	use({
+		"VonHeikemen/lsp-zero.nvim",
+		branch = "v3.x",
+		requires = {
+			-- LSP Support
+			{ "neovim/nvim-lspconfig" }, -- Required
+			{ "williamboman/mason.nvim" }, -- Optional
+			{ "williamboman/mason-lspconfig.nvim" }, -- Optional
 
-  use {
-    'theprimeagen/harpoon',
-    branch = 'harpoon2',
-    requires = { { 'nvim-lua/plenary.nvim' } }
-  }
+			-- Autocompletion
+			{ "hrsh7th/nvim-cmp" }, -- Required
+			{ "hrsh7th/cmp-nvim-lsp" }, -- Required
+			{ "L3MON4D3/LuaSnip" }, -- Required
+		},
+	})
 
-  use('nvim-treesitter/playground')
-  use('mbbill/undotree')
-  use('tpope/vim-fugitive')
-  use {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    requires = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' },             -- Required
-      { 'williamboman/mason.nvim' },           -- Optional
-      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
-
-      -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },     -- Required
-      { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-      { 'L3MON4D3/LuaSnip' },     -- Required
-    }
-  }
-
-  --[[
+	--[[
   -- DAP, Debugger, sem uso no momento
   use 'mfussenegger/nvim-dap'
   use {
@@ -112,47 +122,67 @@ return require('packer').startup(function(use)
   })
   ]]
 
-  use({ 'feline-nvim/feline.nvim' })
-  use "Hitesh-Aggarwal/feline_one_monokai.nvim"
-  use 'nvim-tree/nvim-web-devicons'
+	use({ "feline-nvim/feline.nvim" })
+	use("Hitesh-Aggarwal/feline_one_monokai.nvim")
+	use("nvim-tree/nvim-web-devicons")
 
-  use({
-    "kylechui/nvim-surround",
-    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-    config = function()
-      require("nvim-surround").setup({
-      })
-    end
-  })
+	use({
+		"kylechui/nvim-surround",
+		tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	})
 
-  use({
-    'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup()
-    end
-  })
+	use({
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup()
+		end,
+	})
 
-  use { 'mhartington/formatter.nvim' }
+	use({ "mhartington/formatter.nvim" })
 
-  -- https://github.com/nvim-treesitter/nvim-treesitter-context#screenshot
-  use('romgrk/nvim-treesitter-context')
+	-- https://github.com/nvim-treesitter/nvim-treesitter-context#screenshot
+	use("romgrk/nvim-treesitter-context")
 
-  use({
-    "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("todo-comments").setup()
-    end
-  })
+	use({
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup()
+		end,
+	})
 
-  use({
-    "yioneko/nvim-vtsls",
-    config = function()
-      require("lspconfig.configs").vtsls = require("vtsls").lspconfig
-    end
-  })
+	use({
+		"yioneko/nvim-vtsls",
+		config = function()
+			require("lspconfig.configs").vtsls = require("vtsls").lspconfig
+		end,
+	})
 
-  if packer_bootstrap then
-    require('packer').sync()
-  end
+ 	-- use({
+ 	-- 	"VidocqH/lsp-lens.nvim",
+ 	-- 	config = function()
+ 	-- 		require("lsp-lens").setup()
+ 	-- 	end,
+ 	-- })
+
+	-- ver se é bao
+	-- use({
+	--   'ray-x/navigator.lua',
+	--   requires = {
+	--     { 'ray-x/guihua.lua',     run = 'cd lua/fzy && make' },
+	--     { 'neovim/nvim-lspconfig' },
+	--   },
+	--   config = function()
+	--     require("navigator").setup({
+	--       mason = true,
+	--     })
+	--   end,
+	-- })
+
+	if packer_bootstrap then
+		require("packer").sync()
+	end
 end)
