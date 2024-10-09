@@ -24,8 +24,10 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+
+-- format default nvim
 vim.keymap.set("n", "<leader>f", "<cmd>Format<CR>")
-vim.keymap.set("n", "<leader>F", "<cmd>FormatWrite<CR>")
+vim.keymap.set("n", "<leader>F", "<cmd>EslintFixAll<CR>")
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
@@ -41,7 +43,7 @@ vim.keymap.set("n", "<leader><leader>", function()
 end)
 
 
---[[ My remaps ]]--
+--[[ My remaps ]] --
 
 vim.keymap.set("n", "<leader>on", "<cmd>only<CR>")
 

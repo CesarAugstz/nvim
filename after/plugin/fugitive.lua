@@ -26,6 +26,9 @@ autocmd("BufWinEnter", {
         -- needed if i did not set the branch up correctly
         vim.keymap.set("n", "<leader>t", ":Git push -u origin ", opts);
 
+        if vim.g.gitcz_installed then
+        end
+
 
     end,
 })
