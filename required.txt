@@ -1,0 +1,4 @@
+sharkdp
+cmake
+fd-find
+ripgrep
