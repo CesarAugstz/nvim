@@ -3,6 +3,8 @@ local builtin = require('telescope.builtin')
 local actions = require('telescope.actions')
 
 require('telescope').setup {
+  defaults = {
+  },
   mappings = {
     i = {
       ["<RightMouse>"] = actions.close,
@@ -39,9 +41,17 @@ require('telescope').setup {
 require('telescope').load_extension 'fzf'
 
 -- keymaps to start telescope
-vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-vim.keymap.set('n', '<leader>ps', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>pf', function()
+  builtin.find_files({ layout_strategy = 'vertical' })
+end, {})
+
+vim.keymap.set('n', '<C-p>', function()
+  builtin.git_files({ layout_strategy = 'vertical' })
+end, {})
+
+vim.keymap.set('n', '<leader>ps', function()
+  builtin.live_grep({ layout_strategy = 'vertical' })
+end, {})
 -- vim.keymap.set('n', '<leader>ps', function()
 --   builtin.grep_string({ search = vim.fn.input("Grep > ") });
 -- end)

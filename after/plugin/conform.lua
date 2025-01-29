@@ -11,5 +11,6 @@ require("conform").setup({
     typescriptreact = jsFormat,
     javascriptreact = jsFormat,
     vue = jsFormat,
+    bash = { "shfmt" },
   },
 })
