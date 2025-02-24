@@ -2,7 +2,7 @@ local colors = {
   'ayu-dark',
   -- 'flexoki-dark', n funciona direito
   'rose-pine',
-  -- 'tokyonight-night', usei mt, testar outras
+  'tokyonight-night', -- usei mt, testar outras
   -- 'kanagawa', mt fraca as cores
   -- 'poimandres', cor branca, e poucas cores
   'midnight',
