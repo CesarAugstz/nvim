@@ -15,10 +15,10 @@ end
 local dependency_name = "git-cz"
 vim.g.gitcz_installed = CheckProjectNodeDependency(dependency_name)
 
--- Print the result (for debugging purposes)
-if vim.g.gitcz_installed then
-  print("Node.js dependency " .. dependency_name .. " is installed in the project.")
-else
-  print("Node.js dependency " .. dependency_name .. " is not installed in the project.")
+function module_exists(module_name, log)
+  log = log or false
+  local status, _ = pcall(require, module_name)
+  if not log and not status then print( module_name .. " is not installed") end
+  return status
 end
 

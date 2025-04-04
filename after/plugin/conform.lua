@@ -1,3 +1,4 @@
+if not module_exists("conform") then return end
 
 local jsFormat = { "prettierd", "prettier", stop_after_first = true }
 

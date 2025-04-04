@@ -1,7 +1,6 @@
-local line_ok, feline = pcall(require, "feline")
-if not line_ok then
-	return
-end
+if not module_exists("feline") then return end
+
+local feline = require"feline"
 
 local one_monokai = {
 	fg = "#abb2bf",

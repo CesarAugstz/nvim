@@ -1,3 +1,5 @@
+if not module_exists("treesitter-context") then return end
+
 local treesitterContext = require('treesitter-context')
 
 treesitterContext.setup {

@@ -142,11 +142,11 @@ return require('packer').startup(function(use)
     end
   })
 
-  use({
-    'sourcegraph/sg.nvim',
-    run = 'nvim -l build/init.lua',
-    config = function() require('sg').setup() end
-  })
+ -- use({
+ --   'sourcegraph/sg.nvim',
+ --   run = 'nvim -l build/init.lua',
+ --   config = function() require('sg').setup() end
+ -- })
 
   use("rhysd/conflict-marker.vim")
 

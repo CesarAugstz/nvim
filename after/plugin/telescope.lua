@@ -1,10 +1,12 @@
+if not module_exists("telescope.builtin") then return end
+
 local builtin = require('telescope.builtin')
 
 local actions = require('telescope.actions')
 
-require('telescope').setup {
-  defaults = {
-  },
+local telescope = require"telescope"
+
+telescope.setup {
   mappings = {
     i = {
       ["<RightMouse>"] = actions.close,
@@ -38,7 +40,12 @@ require('telescope').setup {
   --  },
 }
 
-require('telescope').load_extension 'fzf'
+local status, _ = pcall(telescope.load_extension, 'fzf')
+
+if status then telescope.load_extension 'fzf' 
+else print('fzf telescope is not installed')
+end
+
 
 -- keymaps to start telescope
 vim.keymap.set('n', '<leader>pf', function()
@@ -70,7 +77,7 @@ vim.keymap.set('n', '<leader>pcb', builtin.current_buffer_fuzzy_find, {})
 
 -- telescope config
 -- tvz n precise pq esta com wordwrap
--- require('telescope').setup {
+-- telescope.setup {
 --     defaults = {
 --         mappings = {
 --             n = {

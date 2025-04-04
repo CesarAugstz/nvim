@@ -1,4 +1,8 @@
+if not module_exists("harpoon") then return end
+
+
 local harpoon = require("harpoon")
+
 
 -- REQUIRED
 harpoon:setup()

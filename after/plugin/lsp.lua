@@ -1,3 +1,7 @@
+if not module_exists("lsp-zero") then return end
+
+
+
 local lsp = require('lsp-zero')
 
 lsp.preset('recommended')

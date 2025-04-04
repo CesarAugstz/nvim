@@ -68,3 +68,6 @@ vim.keymap.set("n", "[w", function()
   require("treesitter-context").go_to_context(vim.v.count1)
 end, { silent = true })
 
+
+vim.keymap.set("n", "ya", "mzggVGy`z")
+vim.keymap.set("n", "<leader>ya", 'mzggVG"+y`zzz')

@@ -1,6 +1,7 @@
-local line_ok, formatter = pcall(require, "formatter")
+if not module_exists("formatter") then return end
 
-if not line_ok then return end
+local formatter = require"formatter"
+
 
 local prettier_filetypes = {
   "javascript", "typescript", "vue", "Vue", "json", "html", "css", "scss", "typescriptreact", "javascriptreact"
