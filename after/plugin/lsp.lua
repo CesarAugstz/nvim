@@ -23,7 +23,13 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
   ['Tab'] = nil,
   ['S-Tab'] = nil
 })
-local cmp_sources = { { name = 'cody' }, { name = 'nvim_lsp' }, { name = 'buffer' } }
+local cmp_sources = {
+  { name = 'cody' },
+  { name = 'nvim_lsp' },
+  { name = 'buffer' },
+  { name = 'luasnip' },
+}
+
 local cmp_format = require('lsp-zero').cmp_format({ details = true })
 
 cmp_mappings['<Tab>'] = nil
@@ -32,7 +38,12 @@ cmp_mappings['<S-Tab>'] = nil
 lsp.setup_nvim_cmp({
   mapping = cmp_mappings,
   sources = cmp_sources,
-  formatting = cmp_format
+  formatting = cmp_format,
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end
+  },
 
 })
 
