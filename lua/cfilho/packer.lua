@@ -142,11 +142,11 @@ return require('packer').startup(function(use)
     end
   })
 
- -- use({
- --   'sourcegraph/sg.nvim',
- --   run = 'nvim -l build/init.lua',
- --   config = function() require('sg').setup() end
- -- })
+  -- use({
+  --   'sourcegraph/sg.nvim',
+  --   run = 'nvim -l build/init.lua',
+  --   config = function() require('sg').setup() end
+  -- })
 
   use("rhysd/conflict-marker.vim")
 
@@ -189,6 +189,13 @@ return require('packer').startup(function(use)
     tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
     -- install jsregexp (optional!:).
     run = "make install_jsregexp"
+  })
+
+  use({
+    'augmentcode/augment.vim',
+    config = function()
+      vim.g.augment_workspace_folders = { '/home/tyler/dev/sisprevmais-monorepo' }
+    end,
   })
 
 
