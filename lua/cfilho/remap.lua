@@ -71,3 +71,5 @@ end, { silent = true })
 
 vim.keymap.set("n", "ya", "mzggVGy`z")
 vim.keymap.set("n", "<leader>ya", 'mzggVG"+y`zzz')
+
+vim.keymap.set("n", "<leader>td", "<cmd>e ~/todo.md<CR>")
