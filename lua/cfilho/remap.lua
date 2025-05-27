@@ -73,3 +73,4 @@ vim.keymap.set("n", "ya", "mzggVGy`z")
 vim.keymap.set("n", "<leader>ya", 'mzggVG"+y`zzz')
 
 vim.keymap.set("n", "<leader>td", "<cmd>e ~/todo.md<CR>")
+vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>")

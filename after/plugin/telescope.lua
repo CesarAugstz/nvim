@@ -56,9 +56,10 @@ vim.keymap.set('n', '<C-p>', function()
   builtin.git_files({ layout_strategy = 'vertical' })
 end, {})
 
-vim.keymap.set('n', '<leader>ps', function()
-  builtin.live_grep({ layout_strategy = 'vertical' })
-end, {})
+-- is on telescope config file
+-- vim.keymap.set('n', '<leader>ps', function()
+--   builtin.live_grep({ layout_strategy = 'vertical' })
+-- end, {})
 -- vim.keymap.set('n', '<leader>ps', function()
 --   builtin.grep_string({ search = vim.fn.input("Grep > ") });
 -- end)
@@ -74,6 +75,7 @@ vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>pb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>pr', builtin.resume, {})
 vim.keymap.set('n', '<leader>pcb', builtin.current_buffer_fuzzy_find, {})
+
 
 -- telescope config
 -- tvz n precise pq esta com wordwrap

@@ -165,22 +165,6 @@ return require('packer').startup(function(use)
     "stevearc/oil.nvim",
   })
 
-  use({
-    use {
-      'CopilotC-Nvim/CopilotChat.nvim',
-      requires = {
-        'github/copilot.vim',                           -- or zbirenbaum/copilot.lua
-        { 'nvim-lua/plenary.nvim', branch = 'master' }, -- for curl, log and async functions
-      },
-      run = 'make tiktoken',                            -- Only on MacOS or Linux
-      config = function()
-        require("CopilotChat").setup {
-          -- See Configuration section for options
-        }
-      end,
-    }
-  })
-
   use({ 'mg979/vim-visual-multi', branch = 'master' })
 
   use({
