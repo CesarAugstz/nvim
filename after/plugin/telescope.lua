@@ -4,9 +4,17 @@ local builtin = require('telescope.builtin')
 
 local actions = require('telescope.actions')
 
-local telescope = require"telescope"
+local telescope = require "telescope"
 
 telescope.setup {
+  defaults = {
+    layout_config = {
+      vertical = {
+        width = 0.9,
+        height = 0.9,
+      },
+    },
+  },
   mappings = {
     i = {
       ["<RightMouse>"] = actions.close,
@@ -42,8 +50,10 @@ telescope.setup {
 
 local status, _ = pcall(telescope.load_extension, 'fzf')
 
-if status then telescope.load_extension 'fzf' 
-else print('fzf telescope is not installed')
+if status then
+  telescope.load_extension 'fzf'
+else
+  print('fzf telescope is not installed')
 end
 
 

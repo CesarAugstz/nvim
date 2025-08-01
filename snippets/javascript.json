@@ -1,0 +1,21 @@
+{
+  "console.log": {
+    "prefix": ["cl", "log"],
+    "body": "console.log(${1:message});$0"
+  },
+  "function": {
+    "prefix": "fn",
+    "body": "function ${1:name}(${2:params}) {\n\t${3:body}\n\treturn ${4:value};\n}$0"
+  },
+  "react-component": {
+    "prefix": "rcomp",
+    "body": [
+      "interface ${1:ComponentName}Props {\n\tclassName?: string;\n}",
+      "export default function ${1:ComponentName}({ className }: ${1:ComponentName}Props) {\n\treturn (\n\t\t<div className={className}>\n\t\t\t${2:content}\n\t\t</div>\n\t);\n}"
+    ]
+  },
+  "callback": {
+    "prefix": "cb",
+    "body": "const ${1:callbackName} = useCallback(() => {\n\t\n}, []);$0"
+  }
+}

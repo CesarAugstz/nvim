@@ -17,7 +17,7 @@ local live_multigrep = function(opts)
 
       local pieces = vim.split(prompt, "  ")
       local args = { "rg" }
-      print(pieces)
+
       if pieces[1] then
         table.insert(args, "-e")
         table.insert(args, pieces[1])

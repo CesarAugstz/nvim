@@ -182,6 +182,94 @@ return require('packer').startup(function(use)
     end,
   })
 
+  use {
+    "garymjr/nvim-snippets",
+    config = function()
+      -- Configure nvim-snippets
+      require('snippets').setup({
+        create_autocmd = false,          -- Don't auto-load snippets (nvim-cmp handles this)
+        create_cmp_source = true,        -- Create cmp source (default, works with your setup)
+        friendly_snippets = true,        -- Set to true if you're using friendly-snippets
+        ignored_filetypes = nil,         -- No ignored filetypes
+        extended_filetypes = {           -- Load additional snippets for specific filetypes
+          typescript = { 'javascript' }, -- Load JS snippets for TS files
+          javascriptreact = { 'javascript' },
+          typescriptreact = { 'javascript', 'typescript' }
+        },
+        global_snippets = { 'all' }, -- Snippets available in all filetypes
+        search_paths = {             -- Where to look for snippet files
+          vim.fn.stdpath('config') .. '/snippets',
+          vim.fn.stdpath('data') .. '/site/pack/packer/start/friendly-snippets'
+        }
+      })
+      -- Tab in insert mode - jump forward or fallback to normal Tab
+      vim.keymap.set("i", "<Tab>", function()
+        if vim.snippet.active({ direction = 1 }) then
+          vim.schedule(function()
+            vim.snippet.jump(1)
+          end)
+          return
+        end
+        return "<Tab>"
+      end, { expr = true, silent = true })
+
+      -- Tab in select mode - always jump forward
+      vim.keymap.set("s", "<Tab>", function()
+        vim.schedule(function()
+          vim.snippet.jump(1)
+        end)
+      end, { expr = true, silent = true })
+
+      -- S-Tab in insert and select modes - jump backward or fallback
+      vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+        if vim.snippet.active({ direction = -1 }) then
+          vim.schedule(function()
+            vim.snippet.jump(-1)
+          end)
+          return
+        end
+        return "<S-Tab>"
+      end, { expr = true, silent = true })
+    end
+  }
+
+  use {
+    'michaelrommel/nvim-silicon',
+    cmd = 'Silicon',
+    config = function()
+      require("nvim-silicon").setup({
+        to_clipboard = true,
+        theme = "Dracula",
+        output = function()
+          return "./" .. os.date("%Y-%m-%dT%H-%M-%S") .. "_code.png"
+        end,
+        background = "#FFFFFF",
+        language = function()
+          local filetype = vim.bo.filetype
+          print("filetype: " .. filetype)
+          if filetype == nil or filetype == "" then
+            local ext = vim.fn.fnamemodify(
+              vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()),
+              ":e"
+            )
+            print("ext: " .. ext)
+            if ext == "zmodel" then
+              return "dart"
+            end
+            return ext
+          end
+          if filetype == "zmodel" then
+            return "dart"
+          end
+          return vim.bo.filetype
+        end,
+        window_title = function()
+          return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
+        end,
+      })
+    end
+  }
+
 
   if packer_bootstrap then require('packer').sync() end
 end)
